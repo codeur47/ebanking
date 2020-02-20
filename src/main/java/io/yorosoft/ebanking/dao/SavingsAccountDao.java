@@ -10,5 +10,5 @@ import io.yorosoft.ebanking.model.SavingsAccount;
  */
 @Repository
 public interface SavingsAccountDao extends CrudRepository<SavingsAccount, Long>{
-    SavingsAccount findByAccountNumber(int accountNumber);
+    SavingsAccount findByAccountNumber(String accountNumber);
 }

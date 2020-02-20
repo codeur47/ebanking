@@ -50,7 +50,7 @@ public class HomeController {
             return "signup";
         }else{
             Set<UserRole> userRoles = new HashSet<>();
-            userRoles.add(new UserRole(user, roleDao.findByName("USER")));
+            userRoles.add(new UserRole(user, roleDao.findByName("ROLE_USER")));
             userService.createUser(user,userRoles);
             return "redirect:/";
         }

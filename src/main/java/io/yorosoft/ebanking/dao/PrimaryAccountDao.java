@@ -11,5 +11,5 @@ import io.yorosoft.ebanking.model.PrimaryAccount;
 @Repository
 public interface PrimaryAccountDao extends CrudRepository<PrimaryAccount, Long> {
 
-    PrimaryAccount findByAccountNumber(int accountNumber);
+    PrimaryAccount findByAccountNumber(String accountNumber);
 }

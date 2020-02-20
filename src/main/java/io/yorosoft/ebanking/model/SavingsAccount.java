@@ -11,7 +11,7 @@ public class SavingsAccount {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-    private int accountNumber;
+    private String accountNumber;
     private BigDecimal accountBalance;
     @OneToMany(mappedBy = "savingsAccount", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JsonIgnore
@@ -20,7 +20,7 @@ public class SavingsAccount {
     public SavingsAccount() {
     }
 
-    public SavingsAccount(Long id, int accountNumber, BigDecimal accountBalance, List<SavingsTransaction> savingsTransactionList) {
+    public SavingsAccount(Long id, String accountNumber, BigDecimal accountBalance, List<SavingsTransaction> savingsTransactionList) {
         this.id = id;
         this.accountNumber = accountNumber;
         this.accountBalance = accountBalance;
@@ -35,11 +35,11 @@ public class SavingsAccount {
         this.id = id;
     }
 
-    public int getAccountNumber() {
+    public String getAccountNumber() {
         return accountNumber;
     }
 
-    public void setAccountNumber(int accountNumber) {
+    public void setAccountNumber(String accountNumber) {
         this.accountNumber = accountNumber;
     }
 

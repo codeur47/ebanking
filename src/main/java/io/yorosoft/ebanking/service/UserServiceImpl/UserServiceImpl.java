@@ -56,8 +56,8 @@ public class UserServiceImpl implements UserService {
                 roleDao.save(ur.getRole());
             }
             user.getUserRoles().addAll(userRoles);
-            user.setPrimaryAccount(accountService.createPrimaryAccount());
-            user.setSavingsAccount(accountService.createSavingsAccount());
+            user.setPrimaryAccount(accountService.createPrimaryAccount(user));
+            user.setSavingsAccount(accountService.createSavingsAccount(user));
             localUser = userDao.save(user);
         }
         return localUser;
