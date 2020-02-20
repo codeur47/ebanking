@@ -1,10 +1,26 @@
 package io.yorosoft.ebanking.model;
 
 import javax.persistence.*;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+
+import io.yorosoft.ebanking.model.security.Authority;
+import io.yorosoft.ebanking.model.security.UserRole;
+
+import java.util.Collection;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Entity
-public class User {
+public class User implements UserDetails {
+    /**
+     *
+     */
+    private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long userId;
@@ -30,10 +46,16 @@ public class User {
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Recipient> recipientList;
 
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JsonIgnore
+    private Set<UserRole> userRoles = new HashSet<>();
+
     public User() {
     }
 
-    public User(String username, String password, String firstName, String lastName, String email, String phone, boolean enabled, PrimaryAccount primaryAccount, SavingsAccount savingsAccount, List<Appointment> appointmentList, List<Recipient> recipientList) {
+    public User(String username, String password, String firstName, String lastName, String email, String phone,
+            boolean enabled, PrimaryAccount primaryAccount, SavingsAccount savingsAccount,
+            List<Appointment> appointmentList, List<Recipient> recipientList) {
         this.username = username;
         this.password = password;
         this.firstName = firstName;
@@ -143,21 +165,41 @@ public class User {
         this.recipientList = recipientList;
     }
 
+    public Set<UserRole> getUserRoles() {
+        return userRoles;
+    }
+    public void setUserRoles(Set<UserRole> userRoles) {
+        this.userRoles = userRoles;
+    }
+
     @Override
     public String toString() {
-        return "User{" +
-                "userId=" + userId +
-                ", username='" + username + '\'' +
-                ", password='" + password + '\'' +
-                ", firstName='" + firstName + '\'' +
-                ", lastName='" + lastName + '\'' +
-                ", email='" + email + '\'' +
-                ", phone='" + phone + '\'' +
-                ", enabled=" + enabled +
-                ", primaryAccount=" + primaryAccount +
-                ", savingsAccount=" + savingsAccount +
-                ", appointmentList=" + appointmentList +
-                ", recipientList=" + recipientList +
-                '}';
+        return "User{" + "userId=" + userId + ", username='" + username + '\'' + ", password='" + password + '\''
+                + ", firstName='" + firstName + '\'' + ", lastName='" + lastName + '\'' + ", email='" + email + '\''
+                + ", phone='" + phone + '\'' + ", enabled=" + enabled + ", primaryAccount=" + primaryAccount
+                + ", savingsAccount=" + savingsAccount + ", appointmentList=" + appointmentList + ", recipientList="
+                + recipientList + '}';
+    }
+
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        Set<GrantedAuthority> authorities = new HashSet<>();
+        userRoles.forEach(ur -> authorities.add(new Authority(ur.getRole().getName())));
+        return authorities;
+    }
+
+    @Override
+    public boolean isAccountNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return true;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
     }
 }

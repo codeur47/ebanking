@@ -1,7 +1,12 @@
 package io.yorosoft.ebanking.controller;
 
+import io.yorosoft.ebanking.dao.RoleDao;
 import io.yorosoft.ebanking.model.User;
+import io.yorosoft.ebanking.model.security.UserRole;
 import io.yorosoft.ebanking.service.UserService;
+
+import java.util.HashSet;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -15,9 +20,12 @@ public class HomeController {
 
     private UserService userService;
 
+    private RoleDao roleDao;
+
     @Autowired
-    public HomeController(UserService userService){
+    public HomeController(UserService userService, RoleDao roleDao){
         this.userService = userService;
+        this.roleDao = roleDao;
     }
 
     @GetMapping("/")
@@ -41,7 +49,9 @@ public class HomeController {
             if(userService.checkEmailExists(user.getEmail())) model.addAttribute("emailExists", true);
             return "signup";
         }else{
-            userService.save(user);
+            Set<UserRole> userRoles = new HashSet<>();
+            userRoles.add(new UserRole(user, roleDao.findByName("USER")));
+            userService.createUser(user,userRoles);
             return "redirect:/";
         }
     }

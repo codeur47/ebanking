@@ -13,6 +13,8 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
+import io.yorosoft.ebanking.service.UserServiceImpl.UserSecurityService;
+
 /**
  * SecurityConfig
  */
@@ -34,7 +36,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Bean
     public BCryptPasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder(12, new SecureRandom(SALT.getBytes()))
+        return new BCryptPasswordEncoder(12, new SecureRandom(SALT.getBytes()));
     }
 
     private static final String[] PUBLIC_MATCHERS = {
@@ -47,7 +49,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         "/contact/**",
         "/error/**/*",
         "/console/**",
-        "signup"
+        "/signup"
     };
 
     @Override

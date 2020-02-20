@@ -1,6 +1,9 @@
 package io.yorosoft.ebanking.service;
 
+import java.util.Set;
+
 import io.yorosoft.ebanking.model.User;
+import io.yorosoft.ebanking.model.security.UserRole;
 
 /**
  * UserService
@@ -18,4 +21,6 @@ public interface UserService {
     public boolean checkEmailExists(String email);
 
     public boolean checkUserExists(String username, String email);
+
+    User createUser(User user, Set<UserRole> userRoles);
 }

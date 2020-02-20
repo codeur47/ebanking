@@ -7,7 +7,11 @@ import org.springframework.security.core.GrantedAuthority;
  */
 public class Authority implements GrantedAuthority {
 
-    private final String authority;
+    /**
+     *
+     */
+    private static final long serialVersionUID = 1L;
+    private String authority;
 
     public Authority(String authString) {
         this.authority = authority;

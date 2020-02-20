@@ -8,8 +8,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import io.yorosoft.ebanking.dao.UserDao;
-import org.springframework.security.core.userdetails.User;
-
+import io.yorosoft.ebanking.model.User;
 import org.slf4j.Logger;
 
 /**
