@@ -8,6 +8,8 @@ import io.yorosoft.ebanking.service.UserService;
 import java.util.HashSet;
 import java.util.Set;
 
+import java.security.Principal;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -54,6 +56,14 @@ public class HomeController {
             userService.createUser(user,userRoles);
             return "redirect:/";
         }
+    }
+
+    @GetMapping("/userFront")
+    public String userFront(Principal principal, Model model){
+        User user = userService.findByUsername(principal.getName());
+        model.addAttribute("primaryAccount", user.getPrimaryAccount());
+        model.addAttribute("savingsAccount", user.getSavingsAccount());
+        return "userFront";
     }
 
 }

@@ -43,7 +43,7 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand page-scroll" th:href="@{/userFront}">Home</a>
+            <a class="navbar-brand page-scroll" th:href="@{/userFront}">Accueil</a>
         </div>
 
         <!-- Collect the nav links, forms, and other content for toggling -->
@@ -54,36 +54,36 @@
                     <a class="page-scroll" href="#page-top"></a>
                 </li>
                 <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Accounts <span class="caret"></span></a>
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Comptes <span class="caret"></span></a>
                     <ul class="dropdown-menu">
-                        <li><a th:href="@{/account/primaryAccount}">Primary</a></li>
+                        <li><a th:href="@{/account/primaryAccount}">Courant</a></li>
                         <li role="separator" class="divider"></li>
-                        <li><a th:href="@{/account/savingsAccount}">Savings</a></li>
+                        <li><a th:href="@{/account/savingsAccount}">Epargne</a></li>
                     </ul>
                 </li>
                 <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Transfer <span class="caret"></span></a>
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Virement <span class="caret"></span></a>
                     <ul class="dropdown-menu">
-                        <li><a th:href="@{/transfer/betweenAccounts}">Between Accounts</a></li>
-                        <li><a th:href="@{/transfer/toSomeoneElse}">To Someone Else</a></li>
+                        <li><a th:href="@{/transfer/betweenAccounts}">Entre Comptes</a></li>
+                        <li><a th:href="@{/transfer/toSomeoneElse}">A un bénéficiaire</a></li>
                         <li role="separator" class="divider"></li>
-                        <li><a th:href="@{/transfer/recipient}">Add/Edit Recipient</a></li>
+                        <li><a th:href="@{/transfer/recipient}">Ajouter/Modifier un bénéficiaire</a></li>
                     </ul>
                 </li>
                 <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Appointment <span class="caret"></span></a>
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Rendez-vous <span class="caret"></span></a>
                     <ul class="dropdown-menu">
-                        <li><a th:href="@{/appointment/create}">Schedule an Appointment</a></li>
+                        <li><a th:href="@{/appointment/create}">Programmer un rendez-vous</a></li>
                     </ul>
                 </li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
                 <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Me <span class="caret"></span></a>
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Moi <span class="caret"></span></a>
                     <ul class="dropdown-menu">
                         <li><a th:href="@{/user/profile}">Profile</a></li>
                         <li role="separator" class="divider"></li>
-                        <li><a th:href="@{/logout}">Logout</a></li>
+                        <li><a th:href="@{/logout}">Se déconnecter</a></li>
                     </ul>
                 </li>
             </ul>

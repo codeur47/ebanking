@@ -6,12 +6,12 @@
 <div class="container main">
     <div class="row">
         <div class="col-md-6">
-            <h3>Schedule An Appointment</h3>
+            <h3>Programmer un rendez-vous</h3>
             <form th:action="@{/appointment/create}" method="post" id="appointmentForm">
                 <input type="hidden" name="id" th:value="${appointment.id}"/>
 
                 <div class="form-group">
-                    <label for="dateString">Pick a Date and Time:</label>
+                    <label for="dateString">Choisir une date et une heure:</label>
                     <div class="input-append date form_datetime input-group" data-date="2016-10-21T15:25:00Z">
                         <input class="form-control" type="text" value="" readonly="readonly"
                                th:value="${dateString}" name="dateString"
@@ -22,7 +22,7 @@
                 </div>
 
                 <div class="form-group">
-                    <label for="location">Pick a location:</label>
+                    <label for="location">Sélectionner un endroit:</label>
                     <select class="form-control" th:value="${appointment.location}" name="location" id="location"
                             >
                         <option disabled="disabled" selected="selected" > -- select the location --</option>
@@ -43,7 +43,7 @@
                        name="${_csrf.parameterName}"
                        value="${_csrf.token}"/>
 
-                <a class="btn btn-primary" id="submitAppointment">Submit Scheduling</a>
+                <a class="btn btn-primary" id="submitAppointment">Confirmer le rendez-vous</a>
             </form>
 
             <div class="col-md-6">

@@ -6,74 +6,74 @@
 <div class="container">
     <div class="row main">
         <div class="col-md-6">
-            <h2 class="title">My Profile</h2>
+            <h2 class="title">Mon Profile</h2>
             <hr/>
             <form method="post" th:action="@{/user/profile}">
                 <input type="hidden" name="id" th:value="${user.userId}"/>
 
                 <div class="form-group">
-                    <label for="firstName">First Name</label>
+                    <label for="firstName">Prenom(s)</label>
                     <div class="cols-sm-10">
                         <div class="input-group">
                             <span class="input-group-addon"><i class="fa fa-user fa" aria-hidden="true"></i></span>
                             <input type="text" class="form-control" th:value="${user.firstName}" id="firstName"
-                                   name="firstName" roleId="firstname" placeholder="Enter your first name"
+                                   name="firstName" roleId="firstname" placeholder="Entrer votre prenom(s)"
                                    required="required"/>
                         </div>
                     </div>
                 </div>
 
                 <div class="form-group">
-                    <label for="lastName" class="cols-sm-2 control-label">Last Name</label>
+                    <label for="lastName" class="cols-sm-2 control-label">Nom</label>
                     <div class="cols-sm-10">
                         <div class="input-group">
                             <span class="input-group-addon"><i class="fa fa-user fa" aria-hidden="true"></i></span>
                             <input type="text" class="form-control" th:value="${user.lastName}" id="lastName"
-                                   name="lastName" roleId="lastName" placeholder="Enter your last name"
+                                   name="lastName" roleId="lastName" placeholder="Entrer votre nom"
                                    required="required"/>
                         </div>
                     </div>
                 </div>
 
                 <div class="form-group">
-                    <label for="phone" class="cols-sm-2 control-label">Phone</label>
+                    <label for="phone" class="cols-sm-2 control-label">TéléPhone</label>
                     <div class="cols-sm-10">
                         <div class="input-group">
                             <span class="input-group-addon"><i class="fa fa-phone fa" aria-hidden="true"></i></span>
                             <input type="text" class="form-control" th:value="${user.phone}" id="phone" name="phone"
-                                   roleId="phone" placeholder="xxx-xxx-xxxx" required="required"/>
+                                   roleId="phone" placeholder="xxx-xxx-xx" required="required"/>
                         </div>
                     </div>
                 </div>
 
                 <div class="form-group">
-                    <label for="email" class="cols-sm-2 control-label">Your Email</label><span
-                        class="bg-danger pull-right" th:if="${emailExists}">Email already exists</span>
+                    <label for="email" class="cols-sm-2 control-label">Votre Email</label><span
+                        class="bg-danger pull-right" th:if="${emailExists}">Email existe déjà</span>
                     <div class="cols-sm-10">
                         <div class="input-group">
                                 <span class="input-group-addon"><i class="fa fa-envelope fa"
                                                                    aria-hidden="true"></i></span>
                             <input type="text" class="form-control" th:value="${user.email}" id="email" name="email"
-                                   roleId="email" placeholder="Enter your Email" required="required"/>
+                                   roleId="email" placeholder="Entrer votre Email" required="required"/>
                         </div>
                     </div>
                 </div>
 
                 <div class="form-group">
-                    <label for="username" class="cols-sm-2 control-label">Username</label><span
-                        class="bg-danger pull-right" th:if="${usernameExists}">Username already exists</span>
+                    <label for="username" class="cols-sm-2 control-label">Nom Utilisateur</label><span
+                        class="bg-danger pull-right" th:if="${usernameExists}">Nom Utilisateur existe déjà</span>
                     <div class="cols-sm-10">
                         <div class="input-group">
                             <span class="input-group-addon"><i class="fa fa-users fa" aria-hidden="true"></i></span>
                             <input type="text" class="form-control" th:value="${user.username}" id="username"
-                                   name="username" roleId="username" placeholder="Enter your Username"
+                                   name="username" roleId="username" placeholder="Entrer votre Nom Utilisateur"
                                    required="required"/>
                         </div>
                     </div>
                 </div>
 
                 <div class="form-group ">
-                    <button type="submit" class="btn btn-primary btn-block ">Change Settings
+                    <button type="submit" class="btn btn-primary btn-block ">Changer les paramètres
                     </button>
                 </div>
 
@@ -82,13 +82,13 @@
         <div class="col-md-6">
             <div class="panel-heading">
                 <div class="panel-title text-center">
-                    <h1 class="title">Your Account Information</h1>
+                    <h1 class="title">Information de Compte</h1>
                     <hr/>
                 </div>
                 <table class="responstable">
                     <tr>
-                        <th>Primary Account Number</th>
-                        <th>Savings Account Number</th>
+                        <th>Numero Compte Courant</th>
+                        <th>Numéro Compte Epargne</th>
                     </tr>
 
                     <tr>
