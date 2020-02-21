@@ -1,13 +1,19 @@
 package io.yorosoft.ebanking.service.UserServiceImpl;
 
+import java.math.BigDecimal;
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import io.yorosoft.ebanking.dao.PrimaryAccountDao;
 import io.yorosoft.ebanking.dao.PrimaryTransactionDao;
+import io.yorosoft.ebanking.dao.SavingsAccountDao;
 import io.yorosoft.ebanking.dao.SavingsTransactionDao;
+import io.yorosoft.ebanking.model.PrimaryAccount;
 import io.yorosoft.ebanking.model.PrimaryTransaction;
+import io.yorosoft.ebanking.model.SavingsAccount;
 import io.yorosoft.ebanking.model.SavingsTransaction;
 import io.yorosoft.ebanking.service.TransactionService;
 import io.yorosoft.ebanking.service.UserService;
@@ -18,18 +24,24 @@ import io.yorosoft.ebanking.service.UserService;
 @Service
 public class TransactionServiceImpl implements TransactionService {
 
-    
     private UserService userService;
 
     private PrimaryTransactionDao primaryTransactionDao;
-    
+
     private SavingsTransactionDao savingsTransactionDao;
 
+    private PrimaryAccountDao primaryAccountDao;
+    
+    private SavingsAccountDao savingsAccountDao;
+
     @Autowired
-    public TransactionServiceImpl(UserService userService, PrimaryTransactionDao primaryTransactionDao, SavingsTransactionDao savingsTransactionDao) {
+    public TransactionServiceImpl(UserService userService, PrimaryTransactionDao primaryTransactionDao,
+            SavingsTransactionDao savingsTransactionDao, PrimaryAccountDao primaryAccountDao,SavingsAccountDao savingsAccountDao) {
         this.userService = userService;
         this.primaryTransactionDao = primaryTransactionDao;
         this.savingsTransactionDao = savingsTransactionDao;
+        this.primaryAccountDao = primaryAccountDao;
+        this.savingsAccountDao = savingsAccountDao;
     }
 
     @Override
@@ -60,5 +72,26 @@ public class TransactionServiceImpl implements TransactionService {
     @Override
     public void saveSavingsWithdrawTransaction(SavingsTransaction savingsTransaction) {
         savingsTransactionDao.save(savingsTransaction);
+    }
+
+    @Override
+    public void betweenAccountsTransfer(String transferFrom, String transferTo, String amount,
+            PrimaryAccount primaryAccount, SavingsAccount savingsAccount) throws Exception {
+        if (transferFrom.equalsIgnoreCase("Primary") && transferTo.equalsIgnoreCase("Savings")) {
+            primaryAccount.setAccountBalance(primaryAccount.getAccountBalance().subtract(new BigDecimal(amount)));
+            savingsAccount.setAccountBalance(savingsAccount.getAccountBalance().add(new BigDecimal(amount)));
+            primaryAccountDao.save(primaryAccount);
+            savingsAccountDao.save(savingsAccount);
+            PrimaryTransaction primaryTransaction = new PrimaryTransaction(new Date(), "Virement du compte "+transferFrom+ " au compte "+transferTo ,"Virement", "Terminé", Double.parseDouble(amount), primaryAccount.getAccountBalance(), primaryAccount);
+            primaryTransactionDao.save(primaryTransaction);
+        } else if(transferFrom.equalsIgnoreCase("Savings") && transferTo.equalsIgnoreCase("Primary")){
+            primaryAccount.setAccountBalance(primaryAccount.getAccountBalance().add(new BigDecimal(amount)));
+            savingsAccount.setAccountBalance(savingsAccount.getAccountBalance().subtract(new BigDecimal(amount)));
+            primaryAccountDao.save(primaryAccount);
+            savingsAccountDao.save(savingsAccount);
+            SavingsTransaction savingsTransaction = new SavingsTransaction(new Date(), "Virement du compte "+transferFrom+ " au compte "+transferTo ,"Virement", "Terminé", Double.parseDouble(amount), savingsAccount.getAccountBalance(), savingsAccount);
+            savingsTransactionDao.save(savingsTransaction);
+        } else throw new Exception("Invalid Transfer");
+
     }
 }
